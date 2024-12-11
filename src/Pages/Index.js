@@ -15,7 +15,7 @@ export const Index = () => {
       return;
     }
 
-    const name = userName;
+    const name = userName.toLocaleUpperCase();
     console.log("Number of render", i++);
 
     const meetingId = "milkyway";
@@ -41,7 +41,7 @@ export const Index = () => {
       },
       joinScreen: {
         visible: true,
-        title: "Daily scrum",
+        title: `Hi ${name}`,
         meetingUrl: window.location.href,
       },
       pin: {
