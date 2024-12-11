@@ -1,62 +1,73 @@
 import { VideoSDKMeeting } from "@videosdk.live/rtc-js-prebuilt";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+const apiKey = process.env.REACT_APP_VIDEO_SDK_API;
 
-export const Index = ()=>{
-    useEffect(()=>{
+export const Index = () => {
+  const { userName } = useParams(); // This will extract the userName from the URL
 
-        const apiKey = import.meta.env.VITE_APP_VIDEO_SDK_API;
-        const meetingId = "milkyway";
-        const name = "Demo User";
+  console.log(userName);
 
-        const config = {
-            name: name,
-            meetingId: meetingId,
-            apiKey: apiKey,
-      
-            containerId: "vdoCall",
-            micEnabled: true,
-            webcamEnabled: true,
-            participantCanToggleSelfWebcam: true,
-            participantCanToggleSelfMic: true,
-      
-            chatEnabled: true,
-            screenShareEnabled: true,
-            participantCanLeave: true, // if false, leave button won't be visible
-      
-      
-            permissions: {
-              askToJoin: false, // Ask joined participants for entry in meeting
-              toggleParticipantMic: true, // Can toggle other participant's mic
-              toggleParticipantWebcam: true, // Can toggle other participant's webcam
-              removeParticipant: true, // Remove other participant from meeting
-              endMeeting: true, // End meeting for all participant
-            },
-      
-            joinScreen: {
-              visible: true, // Show the join screen ?
-              title: "Daily scrum", // Meeting title
-              meetingUrl: window.location.href, // Meeting joining url
-            },
-      
-            pin: {
-              allowed: true, // participant can pin any participant in meeting
-              layout: "SIDEBAR", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
-            },
-      
-            leftScreen: {
-              actionButton: {
-                label: "Powered by Kasinathan", // action button label
-                href: "https://kasinathanb.vercel.app", // action button href
-              },
-            },
-          };
-          const meeting = new VideoSDKMeeting()
-          meeting.init(config)
-    },[])
+  let i = 0;
+  useEffect(() => {
+    if (!apiKey) {
+      console.error("API key is missing!");
+      return;
+    }
 
-    return(
-        <div id="vdoCall">
+    const name = userName;
+    console.log("Number of render", i++);
 
-        </div>
-    )
-}
+    const meetingId = "milkyway";
+
+    const config = {
+      name,
+      meetingId,
+      apiKey,
+      containerId: "vdoCall",
+      micEnabled: true,
+      webcamEnabled: true,
+      participantCanToggleSelfWebcam: true,
+      participantCanToggleSelfMic: true,
+      chatEnabled: true,
+      screenShareEnabled: true,
+      participantCanLeave: true,
+      permissions: {
+        askToJoin: false,
+        toggleParticipantMic: true,
+        toggleParticipantWebcam: true,
+        removeParticipant: true,
+        endMeeting: true,
+      },
+      joinScreen: {
+        visible: true,
+        title: "Daily scrum",
+        meetingUrl: window.location.href,
+      },
+      pin: {
+        allowed: true,
+        layout: "SIDEBAR",
+      },
+      leftScreen: {
+        actionButton: {
+          label: "Powered by Kasinathan",
+          href: "https://kasinathanb.vercel.app",
+        },
+      },
+    };
+
+    const meeting = new VideoSDKMeeting();
+    meeting.init(config);
+
+    // Cleanup if needed
+  }, [apiKey]); // Empty dependency array ensures this runs only once
+  if (!userName) {
+    console.error("User Name is missing!");
+    return;
+  }
+  return (
+    <div style={{ position: "absolute", width: "100%", height: "100%" }}>
+      <div id="vdoCall" style={{ position: "relative" }}></div>
+    </div>
+  );
+};

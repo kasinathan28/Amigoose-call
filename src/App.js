@@ -1,11 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Index } from './Pages/Index';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Index } from "./Pages/Index";
+import { Intro } from "./Pages/Intro";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Index/>}/>
+        <Route path="/" element={<Intro />} />
+        <Route path="/call/:userName" element={<Index />} />
       </Routes>
     </BrowserRouter>
   );
