@@ -4,11 +4,10 @@ import { useParams } from "react-router-dom";
 const apiKey = process.env.REACT_APP_VIDEO_SDK_API;
 
 export const Index = () => {
-  const { userName } = useParams(); // This will extract the userName from the URL
+  const { userName } = useParams();
 
   console.log(userName);
 
-  let i = 0;
   useEffect(() => {
     if (!apiKey) {
       console.error("API key is missing!");
@@ -16,13 +15,10 @@ export const Index = () => {
     }
 
     const name = userName.toLocaleUpperCase();
-    console.log("Number of render", i++);
-
-    const meetingId = "milkyway";
 
     const config = {
       name,
-      meetingId,
+      meetingId: name,
       apiKey,
       containerId: "vdoCall",
       micEnabled: true,
