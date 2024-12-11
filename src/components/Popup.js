@@ -3,14 +3,19 @@ import "./popup.css";
 
 export const PopUp = ({ onSubmit, onClose }) => {
   const [name, setName] = useState("");
+  const [roomId, setRoomId] = useState(""); // New state to hold the Room ID
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
+  const handleRoomIdChange = (e) => {
+    setRoomId(e.target.value); // Update the Room ID as the user types
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(name);
+    onSubmit(name, roomId); // Pass both name and roomId to onSubmit
     onClose();
   };
 
@@ -29,6 +34,13 @@ export const PopUp = ({ onSubmit, onClose }) => {
             placeholder="Enter your name"
             value={name}
             onChange={handleNameChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Enter Room ID"
+            value={roomId}
+            onChange={handleRoomIdChange}
             required
           />
           <button type="submit">Join</button>

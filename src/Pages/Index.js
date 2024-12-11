@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 const apiKey = process.env.REACT_APP_VIDEO_SDK_API;
 
 export const Index = () => {
-  const { userName } = useParams();
-
-  console.log(userName);
+  const { userName, meetingId } = useParams();
 
   useEffect(() => {
     if (!apiKey) {
@@ -18,7 +16,7 @@ export const Index = () => {
 
     const config = {
       name,
-      meetingId: name,
+      meetingId,
       apiKey,
       containerId: "vdoCall",
       micEnabled: true,

@@ -12,19 +12,21 @@ import { useNavigate } from "react-router-dom";
 export const Intro = () => {
   const [isPopup, setIsPopup] = useState(false);
   const [userName, setUserName] = useState("");
+  const [roomId, setRoomId] = useState("");
   const navigate = useNavigate();
 
   const handlePopup = () => {
     setIsPopup(!isPopup); // Toggle popup visibility
   };
 
-  const handleNavigate = (name) => {
-    navigate(`/call/${name}`); // Navigate to the call route with the username
+  const handleNavigate = (name, roomId) => {
+    navigate(`/call/${name}/${roomId}`); // Navigate to the call route with the username
   };
 
-  const handleNameSubmit = (name) => {
-    setUserName(name); // Store the username in the state
-    handleNavigate(name); // Navigate to the call page
+  const handleNameSubmit = (name, roomId) => {
+    setUserName(name);
+    setRoomId(roomId);
+    handleNavigate(name, roomId); // Pass both name and roomId to navigate
   };
 
   return (

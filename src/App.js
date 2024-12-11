@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Intro />} />
-        <Route path="/call/:userName" element={<Index />} />
+        <Route path="/call/:userName/:meetingId" element={<Index />} />
       </Routes>
     </BrowserRouter>
   );
